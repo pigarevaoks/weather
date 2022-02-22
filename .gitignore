@@ -2,6 +2,7 @@ node_modules/
 public/
 dist/
 .cache/
+.parcel-cache/
 .vscode/
 .idea/
 yarn-error.log
