@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Hello } from './components/Hello';
+import { Card } from './components/Card';
+import * as classes from './styles/styles.less';
 
 const App = () => {
   return (
-    <div>
-      <p>Oksana best girl in the world</p>
-      <Hello compiler="Parcel" framework="React" />
+    <div className={classes.container}>
+      <h1>Weather forecast</h1>
+      <Card />
     </div>
   );
 };

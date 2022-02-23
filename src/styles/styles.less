@@ -1,0 +1,19 @@
+@import './colors.less';
+@import './fonts.less';
+@import './mixins.less';
+@import './normalize.less';
+
+body {
+  font-family: 'Merriweather', sans-serif;
+  background-color: @gray-background-color;
+}
+
+.allyHidden {
+  height: 1px;
+  width: 1px;
+  top: 0;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  position: absolute;
+  left: -32767px;
+}
