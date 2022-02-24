@@ -3,9 +3,20 @@ import { Header } from '../../components/header';
 import { Card } from '../../components/Card';
 import { SearchInput } from '../../components/SearchInput';
 import * as classes from './styles.module.less';
+import { cityAPI } from '../../api/city';
 
 export const Main = () => {
   const [inputValue, setInputValue] = useState('');
+  const [cityOptions, setCityOptions] = useState([]);
+
+  const onSearchInputChange = async (value: string) => {
+    setInputValue(value);
+    if (value.length > 0) {
+      const cities = await cityAPI.getCity(value);
+      setCityOptions(cities);
+    }
+  };
+
   return (
     <div className={classes.container}>
       <Header />
@@ -19,9 +30,9 @@ export const Main = () => {
           <SearchInput
             value={inputValue}
             onSubmit={() => console.log('onSubmit')}
-            onChange={setInputValue}
+            onChange={onSearchInputChange}
             loading={false}
-            options={[]}
+            options={cityOptions}
           />
         </div>
 

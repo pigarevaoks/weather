@@ -1,14 +1,15 @@
 import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
 import { Icon, EIconName } from '../icon';
 import { Loader } from '../Loader';
+import { ICity } from '../../api/city';
 import { EmtyCard } from './EmtyCard';
-// import { Card } from './Card';
+import { Card } from './Card';
 import * as classes from './styles.module.less';
 
 interface ISearchInputProps {
   value: string;
   loading: boolean;
-  options: any[];
+  options: ICity[];
   onChange: (value: string) => void;
   onSubmit: () => void;
 }
@@ -16,7 +17,7 @@ interface ISearchInputProps {
 export const SearchInput: React.FC<ISearchInputProps> = ({
   value,
   loading,
-  options = [],
+  options,
   onChange,
   onSubmit,
 }) => {
@@ -57,7 +58,9 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
         <div className={classes.list}>
           {loading && <Loader />}
           {isEmpty && <EmtyCard city={value} />}
-          {/* {<Card city="Moscow" code="RU" lat="37.129" long="-84.0833" />} */}
+          {options.map(({ name, country, lat, lon }) => (
+            <Card key={lat} city={name} code={country} lat={lat} lon={lon} />
+          ))}
         </div>
       )}
     </form>
