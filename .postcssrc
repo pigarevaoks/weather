@@ -8,7 +8,7 @@
             "grid": true
         },
         "postcss-modules": {
-            "generateScopedName": "[name]__[local]___[hash:base64:5]",
+            "generateScopedName": "[folder]__[local]___[hash:base64:5]",
             "hashPrefix": "prefix"
         }
     }
