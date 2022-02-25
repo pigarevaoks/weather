@@ -20,16 +20,16 @@ export const Main = () => {
 
   useEffect(() => {
     const cardsFromLocalStorage = JSON.parse(localStorage.getItem('cards'));
-    if (cardsFromLocalStorage.length > 0) {
+
+    if (cardsFromLocalStorage?.length > 0) {
       setCards(cardsFromLocalStorage);
-      const citiesFromLocalStorage = cardsFromLocalStorage.map(
-        ({ name, coord: { lat, lon }, sys: { country } }) => ({
-          name,
-          lat,
-          lon,
-          country,
-        })
-      );
+      const citiesFromLocalStorage = cardsFromLocalStorage.map((item) => ({
+        name: item.name,
+        lat: item.coord.lat,
+        lon: item.coord.lon,
+        country: item.sys.country,
+      }));
+
       setCities(citiesFromLocalStorage);
     }
   }, []);
@@ -37,6 +37,8 @@ export const Main = () => {
   useEffect(() => {
     if (cards.length > 0) {
       localStorage.setItem('cards', JSON.stringify(cards));
+    } else {
+      localStorage.removeItem('cards');
     }
   }, [cards]);
 
@@ -44,6 +46,7 @@ export const Main = () => {
     const result = await Promise.all(
       cities.map(({ lat, lon }) => weatherAPI.getWeather(lat, lon))
     );
+
     setCards(result);
   };
 
@@ -51,15 +54,23 @@ export const Main = () => {
     setInputValue(value);
     if (value.length > 0) {
       const cities = await cityAPI.getCity(value);
+
       setCityOptions(cities);
     }
   };
 
-  const onAddCity = (data: ICity) => {
+  const onSelectCity = (data: ICity) => {
     setInputValue('');
     setCities([...cities, data]);
   };
 
+  const onDeleteCard = (id: number) => {
+    const newCards = cards.filter((item) => item.id !== id);
+
+    setCards(newCards);
+  };
+
+  const isEmptyList = cards.length === 0;
   return (
     <div className={classes.container}>
       <Header />
@@ -74,13 +85,18 @@ export const Main = () => {
             value={inputValue}
             loading={false}
             options={cityOptions}
-            onAddCity={onAddCity}
+            onSelectCity={onSelectCity}
             onChange={onSearchInputChange}
           />
         </div>
         <div className={classes.list}>
+          {isEmptyList && (
+            <div className={classes.emptyList}>
+              List is empty, please select city
+            </div>
+          )}
           {cards.map((item) => (
-            <Card key={item.id} {...item} />
+            <Card key={item.id} {...item} onDeleteCard={onDeleteCard} />
           ))}
         </div>
       </section>

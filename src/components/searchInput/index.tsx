@@ -17,7 +17,7 @@ interface ISearchInputProps {
   loading: boolean;
   options: ICity[];
   onChange: (value: string) => void;
-  onAddCity: (data: ICity) => void;
+  onSelectCity: (data: ICity) => void;
 }
 
 export const SearchInput: React.FC<ISearchInputProps> = ({
@@ -25,7 +25,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
   loading,
   options,
   onChange,
-  onAddCity,
+  onSelectCity,
 }) => {
   const searchInputEl = useRef(null);
   const listEl = useRef(null);
@@ -60,9 +60,9 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(e.target.value);
 
-  const onOptionChange = (option: ICity) => {
+  const onOptionSelect = (option: ICity) => {
     setIsOpen(false);
-    onAddCity(option);
+    onSelectCity(option);
   };
 
   const handleArrowDown = () => {
@@ -109,7 +109,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
             <Option
               key={`${item.lat}-${item.lon}`}
               {...item}
-              onAddCity={onOptionChange}
+              onSelect={onOptionSelect}
             />
           ))}
         </div>

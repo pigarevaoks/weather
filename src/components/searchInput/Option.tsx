@@ -4,7 +4,7 @@ import { ICity } from '../../api/city';
 import * as classes from './styles.module.less';
 
 interface IOptionProps extends ICity {
-  onAddCity: (data: ICity) => void;
+  onSelect: (data: ICity) => void;
 }
 
 export const Option: React.FC<IOptionProps> = ({
@@ -12,12 +12,12 @@ export const Option: React.FC<IOptionProps> = ({
   country,
   lat,
   lon,
-  onAddCity,
+  onSelect,
 }) => {
-  const onCardClick = () => onAddCity({ name, country, lat, lon });
+  const onOptionClick = () => onSelect({ name, country, lat, lon });
 
   return (
-    <button className={classes.option} onClick={onCardClick} type="button">
+    <button className={classes.option} onClick={onOptionClick} type="button">
       <div>
         <span className={classes.title}>{`${name}, ${country}`}</span>
         <span className={classes.description}>{`${lat}, ${lon}`}</span>

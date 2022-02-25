@@ -17,20 +17,30 @@ interface IMainWeatherProps {
 }
 
 export interface ICardProps {
+  id: number;
   name: string;
   main: IMainWeatherProps;
   wind: IWindProps;
   weather: IWeatherProps[];
+  onDeleteCard: (id: number) => void;
 }
 
-export const Card: React.FC<ICardProps> = ({ name, main, wind, weather }) => {
+export const Card: React.FC<ICardProps> = ({
+  id,
+  name,
+  main,
+  wind,
+  weather,
+  onDeleteCard,
+}) => {
   const description = capitalize(weather[0].description);
   const iconLink = getWeatherIconByName(weather[0].icon);
+  const onDeleteCardClick = () => onDeleteCard(id);
 
   return (
     <div className={classes.card}>
       <div className={classes.top}>
-        <button className={classes.deleteButton}>
+        <button className={classes.deleteButton} onClick={onDeleteCardClick}>
           <Icon name={EIconName.Delete} />
         </button>
         <h2 className={classes.title}>{name}</h2>
