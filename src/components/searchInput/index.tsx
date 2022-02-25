@@ -3,7 +3,7 @@ import { Icon, EIconName } from '../icon';
 import { Loader } from '../Loader';
 import { ICity } from '../../api/city';
 import { EmtyOption } from './EmtyOption';
-import { Option, ICityOptionProps } from './Option';
+import { Option } from './Option';
 import * as classes from './styles.module.less';
 
 export const EVENT_KEY_CODES = {
@@ -17,7 +17,7 @@ interface ISearchInputProps {
   loading: boolean;
   options: ICity[];
   onChange: (value: string) => void;
-  onAddCity: (data: ICityOptionProps) => void;
+  onAddCity: (data: ICity) => void;
 }
 
 export const SearchInput: React.FC<ISearchInputProps> = ({
@@ -60,7 +60,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(e.target.value);
 
-  const onOptionChange = (option: ICityOptionProps) => {
+  const onOptionChange = (option: ICity) => {
     setIsOpen(false);
     onAddCity(option);
   };
@@ -105,13 +105,10 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
         <div className={classes.list} ref={listEl}>
           {loading && <Loader />}
           {isEmpty && <EmtyOption city={value} />}
-          {options.map(({ name, country, lat, lon }) => (
+          {options.map((item) => (
             <Option
-              key={`${lat}-${lon}`}
-              city={name}
-              code={country}
-              lat={lat}
-              lon={lon}
+              key={`${item.lat}-${item.lon}`}
+              {...item}
               onAddCity={onOptionChange}
             />
           ))}

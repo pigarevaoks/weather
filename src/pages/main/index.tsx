@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Header } from '../../components/header';
 import { Card } from '../../components/Card';
 import { SearchInput } from '../../components/SearchInput';
-import * as classes from './styles.module.less';
-import { cityAPI } from '../../api/city';
+import { cityAPI, ICity } from '../../api/city';
 import { weatherAPI } from '../../api/weather';
+import * as classes from './styles.module.less';
 
 export const Main = () => {
   const [inputValue, setInputValue] = useState('');
@@ -13,8 +13,32 @@ export const Main = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    getWeatherInfo();
+    if (cities.length > 0) {
+      getWeatherInfo();
+    }
   }, [cities]);
+
+  useEffect(() => {
+    const cardsFromLocalStorage = JSON.parse(localStorage.getItem('cards'));
+    if (cardsFromLocalStorage.length > 0) {
+      setCards(cardsFromLocalStorage);
+      const citiesFromLocalStorage = cardsFromLocalStorage.map(
+        ({ name, coord: { lat, lon }, sys: { country } }) => ({
+          name,
+          lat,
+          lon,
+          country,
+        })
+      );
+      setCities(citiesFromLocalStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      localStorage.setItem('cards', JSON.stringify(cards));
+    }
+  }, [cards]);
 
   const getWeatherInfo = async () => {
     const result = await Promise.all(
@@ -31,7 +55,7 @@ export const Main = () => {
     }
   };
 
-  const onAddCity = (data) => {
+  const onAddCity = (data: ICity) => {
     setInputValue('');
     setCities([...cities, data]);
   };
@@ -42,10 +66,10 @@ export const Main = () => {
       <section>
         <h1 className={classes.title}>Weather forecast</h1>
         <div className={classes.row}>
-          <p className={classes.description}>
+          <span className={classes.description}>
             Simple but powerful weather forcasting service based on
             OpenWeatherMap API
-          </p>
+          </span>
           <SearchInput
             value={inputValue}
             loading={false}
