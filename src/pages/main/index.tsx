@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '../../components/header';
 import { Card } from '../../components/Card';
 import { SearchInput } from '../../components/SearchInput';
 import * as classes from './styles.module.less';
 import { cityAPI } from '../../api/city';
+import { weatherAPI } from '../../api/weather';
 
 export const Main = () => {
   const [inputValue, setInputValue] = useState('');
   const [cityOptions, setCityOptions] = useState([]);
-  const [cardsList, setCardsList] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    getWeatherInfo();
+  }, [cities]);
+
+  const getWeatherInfo = async () => {
+    const result = await Promise.all(
+      cities.map(({ lat, lon }) => weatherAPI.getWeather(lat, lon))
+    );
+    setCards(result);
+  };
 
   const onSearchInputChange = async (value: string) => {
     setInputValue(value);
@@ -20,7 +33,7 @@ export const Main = () => {
 
   const onAddCity = (data) => {
     setInputValue('');
-    setCardsList([...cardsList, data]);
+    setCities([...cities, data]);
   };
 
   return (
@@ -41,9 +54,11 @@ export const Main = () => {
             onChange={onSearchInputChange}
           />
         </div>
-        {cardsList.map((item) => (
-          <Card key={item.lat} {...item} />
-        ))}
+        <div className={classes.list}>
+          {cards.map((item) => (
+            <Card key={item.id} {...item} />
+          ))}
+        </div>
       </section>
     </div>
   );

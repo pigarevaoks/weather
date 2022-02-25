@@ -60,7 +60,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(e.target.value);
 
-  const onOptionChange = (option) => {
+  const onOptionChange = (option: ICityOptionProps) => {
     setIsOpen(false);
     onAddCity(option);
   };
