@@ -6,11 +6,11 @@
   font-family: 'PT Root', sans-serif;
 }
 
-.input {
+.dropdown {
   position: relative;
 }
 
-.searchInput {
+.input {
   height: 48px;
   width: 100%;
   border-radius: 8px;
@@ -27,7 +27,7 @@
   }
 }
 
-.searchButton {
+.icon {
   width: 48px;
   height: 48px;
   position: absolute;
@@ -39,10 +39,7 @@
   justify-content: center;
   border-radius: 0 8px 8px 0;
   box-sizing: border-box;
-  border: none;
-  padding: 0;
   background: @main-color;
-  cursor: pointer;
 }
 
 .list {
@@ -64,20 +61,24 @@
   font-family: 'PT Root', sans-serif;
 }
 
-.emtyCard {
+.emtyOption {
   text-align: center;
   font-family: 'PT Root', sans-serif;
 }
 
-.card {
+.option {
+  background: transparent;
+  border: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  padding: 0;
   padding-bottom: 20px;
   border-bottom: 1px solid @border-color;
   margin-bottom: 20px;
+  text-align: left;
   cursor: pointer;
   &:last-child {
     padding-bottom: 0;
@@ -86,7 +87,7 @@
   }
 }
 
-.cardTitle {
+.title {
   display: block;
   font-size: 16px;
   line-height: 24px;
@@ -94,7 +95,7 @@
   color: @main-text-color;
 }
 
-.cardDescription {
+.description {
   display: block;
   font-size: 14px;
   line-height: 20px;

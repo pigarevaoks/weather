@@ -2,15 +2,17 @@ import React from 'react';
 import { Icon, EIconName } from '../icon';
 import * as classes from './styles.module.less';
 
-export interface ICardProps {}
+export interface ICardProps {
+  city: string;
+}
 
-export const Card: React.FC<ICardProps> = () => (
+export const Card: React.FC<ICardProps> = ({ city }) => (
   <div className={classes.card}>
     <div className={classes.top}>
       <button className={classes.deleteButton}>
         <Icon name={EIconName.Delete} />
       </button>
-      <h2 className={classes.title}>London</h2>
+      <h2 className={classes.title}>{city}</h2>
       <div className={classes.temperature} role="text">
         <span className={classes.allyHidden}>Текущая температура</span>
         <span>32</span>

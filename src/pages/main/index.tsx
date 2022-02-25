@@ -8,6 +8,7 @@ import { cityAPI } from '../../api/city';
 export const Main = () => {
   const [inputValue, setInputValue] = useState('');
   const [cityOptions, setCityOptions] = useState([]);
+  const [cardsList, setCardsList] = useState([]);
 
   const onSearchInputChange = async (value: string) => {
     setInputValue(value);
@@ -15,6 +16,11 @@ export const Main = () => {
       const cities = await cityAPI.getCity(value);
       setCityOptions(cities);
     }
+  };
+
+  const onAddCity = (data) => {
+    setInputValue('');
+    setCardsList([...cardsList, data]);
   };
 
   return (
@@ -29,14 +35,15 @@ export const Main = () => {
           </p>
           <SearchInput
             value={inputValue}
-            onSubmit={() => console.log('onSubmit')}
-            onChange={onSearchInputChange}
             loading={false}
             options={cityOptions}
+            onAddCity={onAddCity}
+            onChange={onSearchInputChange}
           />
         </div>
-
-        <Card />
+        {cardsList.map((item) => (
+          <Card key={item.lat} {...item} />
+        ))}
       </section>
     </div>
   );
