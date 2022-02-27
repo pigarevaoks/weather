@@ -6,13 +6,15 @@ export interface ICity {
   lon: number;
   country: string;
 }
+
 class CityAPI {
   getCity = async (city: string): Promise<ICity[]> => {
     try {
       const result = await fetch(
         `${BASE_URL}/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
       );
-      return result.json();
+      const resultToJson = await result.json();
+      return resultToJson;
     } catch (error) {
       throw new Error(error);
     }

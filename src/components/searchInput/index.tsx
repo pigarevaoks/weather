@@ -85,7 +85,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
     focusableElements[nextIndex].focus();
   };
 
-  const isEmpty = options.length === 0;
+  const isEmpty = !loading && options.length === 0;
 
   return (
     <div className={classes.container} ref={searchInputEl}>
@@ -104,14 +104,17 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
       {isOpen && (
         <div className={classes.list} ref={listEl}>
           {loading && <Loader />}
-          {isEmpty && <EmtyOption city={value} />}
-          {options.map((item) => (
-            <Option
-              key={`${item.lat}-${item.lon}`}
-              {...item}
-              onSelect={onOptionSelect}
-            />
-          ))}
+          {isEmpty ? (
+            <EmtyOption city={value} />
+          ) : (
+            options.map((item) => (
+              <Option
+                key={`${item.lat}-${item.lon}`}
+                {...item}
+                onSelect={onOptionSelect}
+              />
+            ))
+          )}
         </div>
       )}
     </div>

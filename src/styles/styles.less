@@ -1,21 +1,15 @@
 @import './colors.less';
 @import './fonts.less';
 @import './mixins.less';
+@import './z-index.less';
 @import './normalize.less';
 
-@dropdown-z-index: 9999;
+:root {
+  font-family: 'Merriweather', sans-serif;
+  color: @main-text-color;
+}
 
 body {
   background-color: @gray-background-color;
   color: @main-text-color;
-}
-
-.allyHidden {
-  height: 1px;
-  width: 1px;
-  top: 0;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-  position: absolute;
-  left: -32767px;
 }

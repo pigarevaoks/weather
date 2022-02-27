@@ -3,25 +3,27 @@ import { Icon, EIconName } from '../icon';
 import { capitalize, getWeatherIconByName } from '../../utils';
 import * as classes from './styles.module.less';
 
-interface IWeatherProps {
+export interface IWeatherProps {
   description: string;
   icon: string;
 }
-interface IWindProps {
+export interface IWindProps {
   speed: number;
 }
-interface IMainWeatherProps {
+export interface IMainWeatherProps {
   temp: number;
   humidity: number;
   pressure: number;
 }
 
-export interface ICardProps {
+export interface IBaseCard {
   id: number;
   name: string;
   main: IMainWeatherProps;
   wind: IWindProps;
   weather: IWeatherProps[];
+}
+interface ICardProps extends IBaseCard {
   onDeleteCard: (id: number) => void;
 }
 

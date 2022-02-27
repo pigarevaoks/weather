@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from '../../components/header';
-import { Card } from '../../components/Card';
 import { SearchInput } from '../../components/SearchInput';
+import { CardsList } from '../../components/CardsList';
 import { cityAPI, ICity } from '../../api/city';
 import { weatherAPI } from '../../api/weather';
+import { useDebounce } from '../../hooks';
 import * as classes from './styles.module.less';
 
 export const Main = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [cityOptions, setCityOptions] = useState([]);
   const [cities, setCities] = useState([]);
   const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    if (cities.length > 0) {
-      getWeatherInfo();
-    }
-  }, [cities]);
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     const cardsFromLocalStorage = JSON.parse(localStorage.getItem('cards'));
-
     if (cardsFromLocalStorage?.length > 0) {
       setCards(cardsFromLocalStorage);
       const citiesFromLocalStorage = cardsFromLocalStorage.map((item) => ({
@@ -29,13 +25,30 @@ export const Main = () => {
         lon: item.coord.lon,
         country: item.sys.country,
       }));
-
       setCities(citiesFromLocalStorage);
     }
   }, []);
 
   useEffect(() => {
-    if (cards.length > 0) {
+    if (debouncedSearchValue) {
+      setIsSearching(true);
+      cityAPI.getCity(debouncedSearchValue).then((results) => {
+        setIsSearching(false);
+        setCityOptions(results);
+      });
+    } else {
+      setCityOptions([]);
+    }
+  }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    if (cities.length > 0) {
+      getWeatherInfo();
+    }
+  }, [cities]);
+
+  useEffect(() => {
+    if (cards?.length > 0) {
       localStorage.setItem('cards', JSON.stringify(cards));
     } else {
       localStorage.removeItem('cards');
@@ -50,18 +63,15 @@ export const Main = () => {
     setCards(result);
   };
 
-  const onSearchInputChange = async (value: string) => {
-    setInputValue(value);
-    if (value.length > 0) {
-      const cities = await cityAPI.getCity(value);
-
-      setCityOptions(cities);
-    }
-  };
-
   const onSelectCity = (data: ICity) => {
-    setInputValue('');
-    setCities([...cities, data]);
+    setSearchValue('');
+    const isDuplicate = cities.find((item) => item.name === data.name);
+
+    if (isDuplicate) {
+      alert('Сity already added!');
+    } else {
+      setCities((prevCities) => [...prevCities, data]);
+    }
   };
 
   const onDeleteCard = (id: number) => {
@@ -70,7 +80,6 @@ export const Main = () => {
     setCards(newCards);
   };
 
-  const isEmptyList = cards.length === 0;
   return (
     <div className={classes.container}>
       <Header />
@@ -82,23 +91,14 @@ export const Main = () => {
             OpenWeatherMap API
           </span>
           <SearchInput
-            value={inputValue}
-            loading={false}
+            value={searchValue}
+            loading={isSearching}
             options={cityOptions}
             onSelectCity={onSelectCity}
-            onChange={onSearchInputChange}
+            onChange={setSearchValue}
           />
         </div>
-        <div className={classes.list}>
-          {isEmptyList && (
-            <div className={classes.emptyList}>
-              List is empty, please select city
-            </div>
-          )}
-          {cards.map((item) => (
-            <Card key={item.id} {...item} onDeleteCard={onDeleteCard} />
-          ))}
-        </div>
+        <CardsList cards={cards} onDeleteCard={onDeleteCard} />
       </section>
     </div>
   );

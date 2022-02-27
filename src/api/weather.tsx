@@ -6,7 +6,9 @@ class WeatherAPI {
       const result = await await fetch(
         `${BASE_URL}/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
       );
-      return result.json();
+      const resultToJson = await result.json();
+
+      return resultToJson;
     } catch (error) {
       throw new Error(error);
     }
