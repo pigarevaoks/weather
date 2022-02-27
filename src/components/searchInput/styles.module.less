@@ -1,10 +1,13 @@
 @import '../../styles/colors.less';
-@import '../../styles/z-index.less';
+@import '../../styles/constants.less';
 
 .container {
   width: 352px;
   position: relative;
   font-family: 'PT Root', sans-serif;
+  @media (max-width: @mobile-size) {
+    width: 100%;
+  }
 }
 
 .dropdown {

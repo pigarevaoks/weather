@@ -1,10 +1,15 @@
 @import '../../styles/colors.less';
+@import '../../styles/constants.less';
 
 .card {
   width: 480px;
   background: @white-background-color;
   border-radius: 24px;
   margin-bottom: 32px;
+  @media (max-width: @mobile-size) {
+    width: 100%;
+    margin-bottom: 16px;
+  }
 }
 
 .top {
@@ -12,11 +17,17 @@
   box-sizing: border-box;
   border-bottom: 1px solid @border-color;
   position: relative;
+  @media (max-width: @mobile-size) {
+    padding: 12px 12px 16px 16px;
+  }
 }
 
 .bottom {
   padding: 24px 32px;
   box-sizing: border-box;
+  @media (max-width: @mobile-size) {
+    padding: 12px 16px;
+  }
 }
 
 .title {
@@ -29,6 +40,9 @@
   font-family: 'PT Root', sans-serif;
   margin-top: 0;
   margin-bottom: 20px;
+  @media (max-width: @mobile-size) {
+    margin-bottom: 12px;
+  }
 }
 
 .deleteButton {
@@ -60,6 +74,10 @@
   color: @main-text-color;
   font-family: 'PT Root', sans-serif;
   margin-bottom: 4px;
+  @media (max-width: @mobile-size) {
+    font-size: 36px;
+    line-height: 40px;
+  }
 }
 
 .icon {
@@ -91,6 +109,9 @@
   display: flex;
   :last-child {
     margin-right: 0;
+  }
+  @media (max-width: @mobile-size) {
+    margin-right: 12px;
   }
 }
 
