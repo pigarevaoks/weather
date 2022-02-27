@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Logo } from '../logo';
-import styles from './styles.module.less';
+import * as classes from './styles.module.less';
 
 interface IProps {
   children: ReactNode;
@@ -25,9 +25,9 @@ export class ErrorBoundary extends Component<IProps, IState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className={styles.content}>
+        <div className={classes.content}>
           <Logo />
-          <span className={styles.title}>Что то пошло не так...</span>
+          <span className={classes.title}>Что то пошло не так...</span>
         </div>
       );
     }

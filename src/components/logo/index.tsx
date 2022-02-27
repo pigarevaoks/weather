@@ -1,8 +1,7 @@
 import React from 'react';
-import * as classes from './styles.module.less';
 
 export const Logo: React.FC = () => (
-  <div className={classes.logo}>
+  <div>
     <svg
       width="48"
       height="48"
