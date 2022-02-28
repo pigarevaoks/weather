@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, IBaseCard } from '../card';
+import { Card, IBaseCard } from 'components/card';
 import * as classes from './styles.module.less';
 
 export interface ICardsListProps {

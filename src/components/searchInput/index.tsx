@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
-import { Icon, EIconName } from '../icon';
-import { Loader } from '../Loader';
-import { ICity } from '../../api/city';
+import { Icon, EIconName } from 'components/icon';
+import { Loader } from 'components/loader';
+import { ICity } from 'api/city';
 import { EmtyOption } from './EmtyOption';
 import { Option } from './Option';
 import * as classes from './styles.module.less';

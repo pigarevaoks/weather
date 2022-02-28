@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icon, EIconName } from '../icon';
-import { ICity } from '../../api/city';
+import { Icon, EIconName } from 'components/icon';
+import { ICity } from 'api/city';
 import * as classes from './styles.module.less';
 
 interface IOptionProps extends ICity {

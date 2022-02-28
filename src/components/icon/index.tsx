@@ -1,10 +1,10 @@
 import React from 'react';
-import AddIcon from '../../assets/icons/add.svg';
-import DeleteIcon from '../../assets/icons/delete.svg';
-import HumidityIcon from '../../assets/icons/humidity.svg';
-import PressureIcon from '../../assets/icons/pressure.svg';
-import SearchIcon from '../../assets/icons/search.svg';
-import WindIcon from '../../assets/icons/wind.svg';
+import AddIcon from 'assets/icons/add.svg';
+import DeleteIcon from 'assets/icons/delete.svg';
+import HumidityIcon from 'assets/icons/humidity.svg';
+import PressureIcon from 'assets/icons/pressure.svg';
+import SearchIcon from 'assets/icons/search.svg';
+import WindIcon from 'assets/icons/wind.svg';
 import * as classes from './styles.module.less';
 
 export enum EIconName {

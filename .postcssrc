@@ -4,9 +4,6 @@
         "postcss-import": true,
         "postcss-url": true,
         "postcss-custom-properties": true,
-        "autoprefixer": {
-            "grid": true
-        },
         "postcss-modules": {
             "generateScopedName": "[folder]__[local]___[hash:base64:5]",
             "hashPrefix": "prefix"

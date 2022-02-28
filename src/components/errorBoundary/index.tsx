@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Logo } from '../logo';
+import { Logo } from 'components/logo';
 import * as classes from './styles.module.less';
 
 interface IProps {

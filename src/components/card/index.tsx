@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icon, EIconName } from '../icon';
-import { capitalize, getWeatherIconByName } from '../../utils';
+import { Icon, EIconName } from 'components/icon';
+import { capitalize, getWeatherIconByName } from 'utils';
 import * as classes from './styles.module.less';
 
 export interface IWeatherProps {

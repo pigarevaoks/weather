@@ -1,5 +1,5 @@
 import React from 'react';
-import { Logo } from '../Logo';
+import { Logo } from 'components/logo';
 import * as classes from './styles.module.less';
 
 export const Header: React.FC = () => (

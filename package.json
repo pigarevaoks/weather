@@ -43,5 +43,13 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-react": "5.0.0",
     "typescript": "4.5.5"
+  },
+  "alias": {
+    "api": "./src/api",
+    "assets": "./src/assets",
+    "components": "./src/components",
+    "hooks": "./src/hooks",
+    "pages": "./src/pages",
+    "utils": "./src/utils"
   }
 }

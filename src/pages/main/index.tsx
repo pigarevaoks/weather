@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Header } from '../../components/header';
-import { SearchInput } from '../../components/SearchInput';
-import { CardsList } from '../../components/CardsList';
-import { cityAPI, ICity } from '../../api/city';
-import { weatherAPI } from '../../api/weather';
-import { useDebounce } from '../../hooks';
+import { Header } from 'components/header';
+import { SearchInput } from 'components/searchInput';
+import { CardsList } from 'components/cardsList';
+import { cityAPI, ICity } from 'api/city';
+import { weatherAPI } from 'api/weather';
+import { useDebounce } from 'hooks';
 import * as classes from './styles.module.less';
 
 export const Main = () => {
