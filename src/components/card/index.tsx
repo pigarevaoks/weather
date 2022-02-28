@@ -1,29 +1,9 @@
 import React from 'react';
 import { Icon, EIconName } from 'components/icon';
 import { capitalize, getWeatherIconByName } from 'utils';
+import { ICard } from 'api/weather';
 import * as classes from './styles.module.less';
-
-export interface IWeatherProps {
-  description: string;
-  icon: string;
-}
-export interface IWindProps {
-  speed: number;
-}
-export interface IMainWeatherProps {
-  temp: number;
-  humidity: number;
-  pressure: number;
-}
-
-export interface IBaseCard {
-  id: number;
-  name: string;
-  main: IMainWeatherProps;
-  wind: IWindProps;
-  weather: IWeatherProps[];
-}
-interface ICardProps extends IBaseCard {
+interface ICardProps extends ICard {
   onDeleteCard: (id: number) => void;
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, IBaseCard } from 'components/card';
+import { Card } from 'components/card';
+import { ICard } from 'api/weather';
 import * as classes from './styles.module.less';
 
 export interface ICardsListProps {
-  cards: IBaseCard[];
+  cards: ICard[];
   onDeleteCard: (id: number) => void;
 }
 
