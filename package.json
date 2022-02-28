@@ -9,10 +9,7 @@
     "build": "parcel build src/index.html",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'"
   },
-  "browserslist": [
-    "last 2 version",
-    "> 1%"
-  ],
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "husky": {
     "hooks": {
       "pre-commit": "npm run prettify"
@@ -21,9 +18,11 @@
   "dependencies": {
     "@parcel/config-default": "2.3.2",
     "@parcel/transformer-svg-react": "2.3.2",
+    "@parcel/transformer-typescript-tsc": "2.3.2",
     "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11",
     "autoprefixer": "10.4.2",
+    "postcss": "8.4.6",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
@@ -31,8 +30,6 @@
     "@parcel/transformer-less": "2.3.2",
     "husky": "7.0.4",
     "parcel": "2.3.2",
-    "parcel-bundler": "1.12.5",
-    "postcss": "8.4.6",
     "postcss-custom-properties": "12.1.4",
     "postcss-import": "14.0.2",
     "postcss-modules": "4.3.0",
