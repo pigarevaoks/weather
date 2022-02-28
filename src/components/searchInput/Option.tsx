@@ -18,11 +18,13 @@ export const Option: React.FC<IOptionProps> = ({
 
 	return (
 		<button className={classes.option} onClick={onOptionClick} type="button">
-			<div>
-				<span className={classes.title}>{`${name}, ${country}`}</span>
-				<span className={classes.description}>{`${lat}, ${lon}`}</span>
+			<div className={classes.content}>
+				<div>
+					<span className={classes.title}>{`${name}, ${country}`}</span>
+					<span className={classes.description}>{`${lat}, ${lon}`}</span>
+				</div>
+				<Icon name={EIconName.Add} />
 			</div>
-			<Icon name={EIconName.Add} />
 		</button>
 	);
 };

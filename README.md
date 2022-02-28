@@ -16,6 +16,6 @@ npm start
 - Удаление городов из списка.
 - Восстановление списка городов после перезагрузки страницы из localStorage.
 
-Макеты в ([фигме](https://www.figma.com/file/dYo79P0b8KPA3oICsw2sFq/Weather-App?node-id=0%3A1))
+Макеты в [фигме](https://www.figma.com/file/dYo79P0b8KPA3oICsw2sFq/Weather-App?node-id=0%3A1)
 
-Приложение можно посмотреть по ([ссылке](https://jovial-einstein-fad42e.netlify.app/))
+Приложение можно посмотреть по [ссылке](https://jovial-einstein-fad42e.netlify.app/)

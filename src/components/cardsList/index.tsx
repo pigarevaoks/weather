@@ -16,14 +16,15 @@ export const CardsList: React.FC<ICardsListProps> = ({
 
 	return (
 		<div className={classes.list}>
-			{isEmptyList && (
+			{isEmptyList ? (
 				<div className={classes.emptyList}>
 					List is empty, please select city
 				</div>
+			) : (
+				cards.map((item) => (
+					<Card key={item.id} {...item} onDeleteCard={onDeleteCard} />
+				))
 			)}
-			{cards.map((item) => (
-				<Card key={item.id} {...item} onDeleteCard={onDeleteCard} />
-			))}
 		</div>
 	);
 };
