@@ -7,116 +7,116 @@ import { Option } from './Option';
 import * as classes from './styles.module.less';
 
 export const EVENT_KEY_CODES = {
-  ARROW_DOWN: 'ArrowDown',
-  ARROW_UP: 'ArrowUp',
-  ESC: 'Escape',
+	ARROW_DOWN: 'ArrowDown',
+	ARROW_UP: 'ArrowUp',
+	ESC: 'Escape',
 };
 
 interface ISearchInputProps {
-  value: string;
-  loading: boolean;
-  options: ICity[];
-  onChange: (value: string) => void;
-  onSelectCity: (data: ICity) => void;
+	value: string;
+	loading: boolean;
+	options: ICity[];
+	onChange: (value: string) => void;
+	onSelectCity: (data: ICity) => void;
 }
 
 export const SearchInput: React.FC<ISearchInputProps> = ({
-  value,
-  loading,
-  options,
-  onChange,
-  onSelectCity,
+	value,
+	loading,
+	options,
+	onChange,
+	onSelectCity,
 }) => {
-  const searchInputEl = useRef(null);
-  const listEl = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
+	const searchInputEl = useRef(null);
+	const listEl = useRef(null);
+	const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    searchInputEl.current.addEventListener('keydown', handleKeyDown);
-    return () => {
-      searchInputEl.current.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [searchInputEl]);
+	useEffect(() => {
+		searchInputEl.current.addEventListener('keydown', handleKeyDown);
+		return () => {
+			searchInputEl.current.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [searchInputEl]);
 
-  useEffect(() => {
-    if (value.length > 0) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [value]);
+	useEffect(() => {
+		if (value.length > 0) {
+			setIsOpen(true);
+		} else {
+			setIsOpen(false);
+		}
+	}, [value]);
 
-  const handleKeyDown = (event: KeyboardEvent): void => {
-    switch (event.key) {
-      case EVENT_KEY_CODES.ARROW_UP:
-        return handleArrowUp();
-      case EVENT_KEY_CODES.ARROW_DOWN:
-        return handleArrowDown();
-      case EVENT_KEY_CODES.ESC:
-        return setIsOpen(false);
-    }
-  };
+	const handleKeyDown = (event: KeyboardEvent): void => {
+		switch (event.key) {
+			case EVENT_KEY_CODES.ARROW_UP:
+				return handleArrowUp();
+			case EVENT_KEY_CODES.ARROW_DOWN:
+				return handleArrowDown();
+			case EVENT_KEY_CODES.ESC:
+				return setIsOpen(false);
+		}
+	};
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
-    onChange(e.target.value);
+	const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+		onChange(e.target.value);
 
-  const onOptionSelect = (option: ICity) => {
-    setIsOpen(false);
-    onSelectCity(option);
-  };
+	const onOptionSelect = (option: ICity) => {
+		setIsOpen(false);
+		onSelectCity(option);
+	};
 
-  const handleArrowDown = () => {
-    const focusableElements = listEl.current.children;
-    const focusable = [...focusableElements];
-    const index = focusable.indexOf(document.activeElement);
-    let nextIndex = 0;
+	const handleArrowDown = () => {
+		const focusableElements = listEl.current.children;
+		const focusable = [...focusableElements];
+		const index = focusable.indexOf(document.activeElement);
+		let nextIndex = 0;
 
-    nextIndex = index + 1 < focusable.length ? index + 1 : index;
-    focusableElements[nextIndex].focus();
-  };
+		nextIndex = index + 1 < focusable.length ? index + 1 : index;
+		focusableElements[nextIndex].focus();
+	};
 
-  const handleArrowUp = () => {
-    const focusableElements = listEl.current.children;
-    const focusable = [...focusableElements];
-    const index = focusable.indexOf(document.activeElement);
-    let nextIndex = 0;
+	const handleArrowUp = () => {
+		const focusableElements = listEl.current.children;
+		const focusable = [...focusableElements];
+		const index = focusable.indexOf(document.activeElement);
+		let nextIndex = 0;
 
-    nextIndex = index > 0 ? index - 1 : 0;
-    focusableElements[nextIndex].focus();
-  };
+		nextIndex = index > 0 ? index - 1 : 0;
+		focusableElements[nextIndex].focus();
+	};
 
-  const isEmpty = !loading && options.length === 0;
+	const isEmpty = !loading && options.length === 0;
 
-  return (
-    <div className={classes.container} ref={searchInputEl}>
-      <div className={classes.dropdown}>
-        <input
-          type="text"
-          value={value}
-          onChange={onInputChange}
-          placeholder="Search"
-          className={classes.input}
-        />
-        <div className={classes.icon}>
-          <Icon name={EIconName.Search} />
-        </div>
-      </div>
-      {isOpen && (
-        <div className={classes.list} ref={listEl}>
-          {loading && <Loader />}
-          {isEmpty ? (
-            <EmtyOption city={value} />
-          ) : (
-            options.map((item) => (
-              <Option
-                key={`${item.lat}-${item.lon}`}
-                {...item}
-                onSelect={onOptionSelect}
-              />
-            ))
-          )}
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div className={classes.container} ref={searchInputEl}>
+			<div className={classes.dropdown}>
+				<input
+					type="text"
+					value={value}
+					onChange={onInputChange}
+					placeholder="Search"
+					className={classes.input}
+				/>
+				<div className={classes.icon}>
+					<Icon name={EIconName.Search} />
+				</div>
+			</div>
+			{isOpen && (
+				<div className={classes.list} ref={listEl}>
+					{loading && <Loader />}
+					{isEmpty ? (
+						<EmtyOption city={value} />
+					) : (
+						options.map((item) => (
+							<Option
+								key={`${item.lat}-${item.lon}`}
+								{...item}
+								onSelect={onOptionSelect}
+							/>
+						))
+					)}
+				</div>
+			)}
+		</div>
+	);
 };
