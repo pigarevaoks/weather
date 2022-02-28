@@ -11,7 +11,7 @@ class CityAPI {
 	getCity = async (city: string): Promise<ICity[]> => {
 		try {
 			const result = await fetch(
-				`${BASE_URL}/geo/1.0/direct?q=${city}&limit=5&units=metric&appid=${API_KEY}`
+				`${BASE_URL}/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
 			);
 			const resultToJson = await result.json();
 			return resultToJson;
