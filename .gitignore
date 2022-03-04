@@ -1,6 +1,8 @@
 node_modules/
 public/
-dist/
+dist/*.map
+dist/*.css
+dist/*.js
 .parcel-cache
 .vscode/
 .idea/
