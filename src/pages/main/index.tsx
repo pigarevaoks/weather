@@ -4,7 +4,6 @@ import { SearchInput } from 'components/searchInput';
 import { CardsList } from 'components/cardsList';
 import { weatherAPI, ICard } from 'api/weather';
 import { cityAPI, ICity } from 'api/city';
-import { useDebounce } from 'hooks';
 import * as classes from './styles.module.less';
 
 export const Main = () => {
@@ -12,7 +11,6 @@ export const Main = () => {
 	const [cityOptions, setCityOptions] = useState<ICity[]>([]);
 	const [cards, setCards] = useState<ICard[]>([]);
 	const [isSearching, setIsSearching] = useState<boolean>(false);
-	const debouncedSearchValue = useDebounce(searchValue, 500);
 
 	useEffect(() => {
 		const cardsFromLocalStorage = JSON.parse(localStorage.getItem('cards'));
@@ -22,16 +20,16 @@ export const Main = () => {
 	}, []);
 
 	useEffect(() => {
-		if (debouncedSearchValue) {
+		if (searchValue) {
 			setIsSearching(true);
-			cityAPI.getCity(debouncedSearchValue).then((results) => {
+			cityAPI.getCity(searchValue).then((results) => {
 				setIsSearching(false);
 				setCityOptions(results);
 			});
 		} else {
 			setCityOptions([]);
 		}
-	}, [debouncedSearchValue]);
+	}, [searchValue]);
 
 	useEffect(() => {
 		if (cards?.length > 0) {
